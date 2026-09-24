@@ -85,32 +85,116 @@ Then we print it...
 ]]
 
 
+---@deprecated
+local function Init()
 
----@param text string
-function string.ToSnakeCasing(text)
+    ---@param text string
+    function string.ToSnakeCasing(text)
 
-    -- Define container, a temporary result
-    local res = ""
+        -- Define container, a temporary result
+        local res = ""
 
-    -- Iterate through characters in given string
-    for i=1, string.len(text) do
-        -- character counting
-        local c = string.sub(text, i, i)
+        -- Iterate through characters in given string
+        for i=1, string.len(text) do
+            -- character counting
+            local c = string.sub(text, i, i)
 
-        --Dynamic nil condition
-        -- %u: represents all uppercase letters.
-        if string.match(c, "%u") then
-            res = res .. "_" .. c
-        else
-            res = res .. c
+            --Dynamic nil condition
+            -- %u: represents all uppercase letters.
+            if string.match(c, "%u") then
+                res = res .. "_" .. c
+            else
+                res = res .. c
+            end
         end
+
+        return string.lower(res)
     end
 
-    return string.lower(res)
+    local toSnakeCasing = string.ToSnakeCasing("camelTestIGuessCheckThisOut")
+
+    print("Result: " .. toSnakeCasing)
+
 end
 
-local toSnakeCasing = string.ToSnakeCasing("camelTestIGuessCheckThisOut")
+Init() -- Run that code
 
-print("Result: " .. toSnakeCasing)
+
+
+-- Abstract version
+
+local function Init2()
+
+    --- Main function. Converts and returns given string into snake_case.
+    --- 
+    ---@param text string
+    function string.ToSnakeCasing(text)
+
+        --- Returns the iteration's character from given string.
+        ---
+        ---@params s string
+        ---@params i integer
+        ---@return string
+        local function _subIteration(s, i)
+            return string.sub(s, i, i)
+        end
+
+        --- Returns true if a character in the string is UPPERCASE.
+        ---
+        --- Pattern "%u": represents all uppercase letters.
+        ---
+        ---@params s string
+        ---@return boolean
+        local function _matchUppercase(s)
+            return string.match(s, "%u") == not nil
+        end
+
+        --- Merge string for UPPERCASE result
+        ---
+        ---@params s1 string
+        ---@params s2 string
+        ---@return string
+        local function _resultUpper(s1, s2)
+            return s1 .. "_" .. s2
+        end
+
+        --- Merge string for lowercase result
+        ---
+        ---@params s1 string
+        ---@params s2 string
+        ---@return string
+        local function _resultLower(s1, s2)
+            return s1 .. s2
+        end
+
+        -- Define container, a temporary result
+        local res = ""
+
+        -- Iterate through each byte in given string. len = length
+        for i=1, string.len(text) do
+
+            local _char = _subIteration(text, i)
+            local _isUppercase = _matchUppercase(_char)
+
+            if _isUppercase then
+                res = _resultUpper()
+            else
+                res = _resultLower()
+            end
+        end
+
+        return string.lower(res) -- Final Result
+    end
+
+
+    local userInput = "camelTestIGuessCheckThisOut"
+    local toSnakeCasing = string.ToSnakeCasing(userInput)
+
+    print("Result: " .. toSnakeCasing)
+
+end
+
+Init2() -- Run that code
+
 
 --//
