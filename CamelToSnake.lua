@@ -85,7 +85,7 @@ Then we print it...
 ]]
 
 
----@deprecated
+--- First showcase
 local function Init()
 
     ---@param text string
@@ -121,8 +121,7 @@ Init() -- Run that code
 
 
 
--- Abstract version
-
+--- Second showcase; Abstract version
 local function Init2()
 
     --- Main function. Converts and returns given string into snake_case.
@@ -132,8 +131,8 @@ local function Init2()
 
         --- Returns the iteration's character from given string.
         ---
-        ---@params s string
-        ---@params i integer
+        ---@param s string
+        ---@param i integer
         ---@return string
         local function _subIteration(s, i)
             return string.sub(s, i, i)
@@ -143,7 +142,7 @@ local function Init2()
         ---
         --- Pattern "%u": represents all uppercase letters.
         ---
-        ---@params s string
+        ---@param s string
         ---@return boolean
         local function _matchUppercase(s)
             return string.match(s, "%u") == not nil
@@ -151,20 +150,20 @@ local function Init2()
 
         --- Merge string for UPPERCASE result
         ---
-        ---@params s1 string
-        ---@params s2 string
+        ---@param s1 string
+        ---@param s2 string
         ---@return string
         local function _resultUpper(s1, s2)
-            return s1 .. "_" .. s2
+            return (s1 .. "_" .. s2)
         end
 
         --- Merge string for lowercase result
         ---
-        ---@params s1 string
-        ---@params s2 string
+        ---@param s1 string
+        ---@param s2 string
         ---@return string
         local function _resultLower(s1, s2)
-            return s1 .. s2
+            return (s1 .. s2)
         end
 
         -- Define container, a temporary result
