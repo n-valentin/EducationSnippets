@@ -177,9 +177,9 @@ local function Init2()
             local _isUppercase = _matchUppercase(_char)
 
             if _isUppercase then
-                res = _resultUpper()
+                res = _resultUpper(res, _char)
             else
-                res = _resultLower()
+                res = _resultLower(res, _char)
             end
         end
 
