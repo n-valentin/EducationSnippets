@@ -153,8 +153,8 @@ local function Init2()
         ---@param s1 string
         ---@param s2 string
         ---@return string
-        local function _resultUpper(s1, s2)
-            return (s1 .. "_" .. s2)
+        local function setResultUpper(s1, s2)
+            s1 = (s1 .. "_" .. s2)
         end
 
         --- Merge string for lowercase result
@@ -162,8 +162,8 @@ local function Init2()
         ---@param s1 string
         ---@param s2 string
         ---@return string
-        local function _resultLower(s1, s2)
-            return (s1 .. s2)
+        local function setResultLower(s1, s2)
+            s1 = (s1 .. s2)
         end
 
         -- Define container, a temporary result
@@ -176,9 +176,9 @@ local function Init2()
             local _isUppercase = _matchUppercase(_char)
 
             if _isUppercase then
-                res = _resultUpper(res, _char)
+                setResultUpper(res, _char)
             else
-                res = _resultLower(res, _char)
+                setResultLower(res, _char)
             end
         end
 
